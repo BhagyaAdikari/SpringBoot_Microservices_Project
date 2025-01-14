@@ -18,6 +18,7 @@ public class ExpenseService {
 
     public void addExpense( Expense expense){
         expenseRepository.insert(expense);
+        System.out.println("Service"+expense);
     }
 
     public void updateExpense(Expense expense){
@@ -39,11 +40,13 @@ public class ExpenseService {
 
     }
 
-    public void getExpenseByName(){
-
+    public Expense getExpenseByName(String name){
+        return expenseRepository.findByName(name).orElseThrow(()->new RuntimeException(
+                String.format("Cannot Find Expense by Name %s", name)
+        ));
     }
 
-    public void deleteExpense(){
-
+    public void deleteExpense(String id){
+        expenseRepository.deleteById(id);
     }
 }
